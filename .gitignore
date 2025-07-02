@@ -137,3 +137,6 @@ dist
 
 # jest
 .jest.result
+
+# output samples
+output*.s16le

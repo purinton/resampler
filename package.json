@@ -2,13 +2,11 @@
     "name": "@purinton/resampler",
     "type": "module",
     "version": "1.0.0",
-    "description": "A Node.js resampler.",
-    "main": "index.cjs",
+    "description": "A pure JavaScript, high-quality PCM audio resampler for Node.js. Converts s16le PCM between arbitrary sample rates and channel layouts (mono/stereo) with windowed-sinc filtering.",
     "module": "index.mjs",
     "types": "index.d.ts",
     "files": [
         "index.mjs",
-        "index.cjs",
         "index.d.ts",
         "README.md",
         "LICENSE"
@@ -16,7 +14,6 @@
     "exports": {
         ".": {
             "import": "./index.mjs",
-            "require": "./index.cjs",
             "types": "./index.d.ts"
         }
     },
@@ -29,7 +26,16 @@
     },
     "keywords": [
         "resampler",
-        "nodejs"
+        "pcm",
+        "audio",
+        "s16le",
+        "sample-rate",
+        "windowed-sinc",
+        "nodejs",
+        "stereo",
+        "mono",
+        "pure-js",
+        "audio-processing"
     ],
     "author": "Russell Purinton <russell@purinton.us>",
     "license": "MIT",
@@ -47,5 +53,8 @@
             "**/?(*.)+(spec|test).mjs",
             "**/?(*.)+(spec|test).cjs"
         ]
+    },
+    "dependencies": {
+        "@purinton/common": "^1.0.16"
     }
 }
