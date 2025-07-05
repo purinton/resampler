@@ -14,6 +14,8 @@ export interface ResamplerOptions {
   outChannels?: number;
   /** Filter window size for the sinc interpolation (default: 8) */
   filterWindow?: number;
+  /** Output volume multiplier (default: 1.0, range: 0.0–1.0+) */
+  volume?: number;
 }
 
 /**
@@ -22,7 +24,7 @@ export interface ResamplerOptions {
  */
 export class Resampler extends Transform {
   /**
-   * @param options Configuration for sample-rate conversion and channel mapping
+   * @param options Configuration for sample-rate conversion, channel mapping, and volume
    */
   constructor(options: ResamplerOptions);
 }

@@ -35,7 +35,8 @@
         "stereo",
         "mono",
         "pure-js",
-        "audio-processing"
+        "audio-processing",
+        "volume-control"
     ],
     "author": "Russell Purinton <russell@purinton.us>",
     "license": "MIT",

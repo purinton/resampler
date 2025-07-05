@@ -31,3 +31,26 @@ test('upsamples 24kHz mono to 48kHz stereo', async () => {
   const tolerance = 64; // bytes, up to 32 samples
   expect(Math.abs(outBuf.length - expected)).toBeLessThanOrEqual(tolerance);
 });
+
+test('volume option reduces amplitude', async () => {
+  const inputPath = path.resolve('input-24k-mono.s16le');
+  const inBuf = fs.readFileSync(inputPath);
+  // Use volume 0.5
+  const resampler = new Resampler({ inRate: 24000, outRate: 24000, inChannels: 1, outChannels: 1, volume: 0.5 });
+  const outBuf = await collect(fs.createReadStream(inputPath).pipe(resampler));
+  // Check that the max absolute value is about half the input's max
+  function maxAbsPCM16(buf) {
+    let max = 0;
+    for (let i = 0; i < buf.length; i += 2) {
+      const v = buf.readInt16LE(i);
+      max = Math.max(max, Math.abs(v));
+    }
+    return max;
+  }
+  const inMax = maxAbsPCM16(inBuf);
+  const outMax = maxAbsPCM16(outBuf);
+  // Allow a little tolerance for rounding
+  expect(outMax).toBeGreaterThan(0);
+  expect(outMax).toBeLessThanOrEqual(Math.ceil(inMax * 0.51));
+  expect(outMax).toBeGreaterThanOrEqual(Math.floor(inMax * 0.49));
+});

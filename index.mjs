@@ -10,7 +10,7 @@ function lanczosWindow(x, a) {
 }
 
 export class Resampler extends Transform {
-  constructor({ inRate, outRate, inChannels = 1, outChannels = 1, filterWindow = 8 }) {
+  constructor({ inRate, outRate, inChannels = 1, outChannels = 1, filterWindow = 8, volume = 1.0 }) {
     super();
     this.inRate = inRate;
     this.outRate = outRate;
@@ -20,6 +20,7 @@ export class Resampler extends Transform {
     this.ratio = inRate / outRate;
     this.phase = filterWindow;
     this.buffers = Array.from({ length: inChannels }, () => []);
+    this.volume = volume;
   }
 
   _transform(chunk, encoding, callback) {
@@ -65,7 +66,8 @@ export class Resampler extends Transform {
 
     const outBuf = Buffer.allocUnsafe(outSamples.length * 2);
     for (let i = 0; i < outSamples.length; i++) {
-      const s = Math.max(-1, Math.min(1, outSamples[i]));
+      // Apply volume control here
+      const s = Math.max(-1, Math.min(1, outSamples[i] * this.volume));
       outBuf.writeInt16LE(Math.round(s * 32767), i * 2);
     }
     this.push(outBuf);
