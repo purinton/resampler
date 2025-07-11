@@ -1,7 +1,7 @@
 {
     "name": "@purinton/resampler",
     "type": "module",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "A pure JavaScript, high-quality PCM audio resampler for Node.js. Converts s16le PCM between arbitrary sample rates and channel layouts (mono/stereo) with windowed-sinc filtering.",
     "module": "index.mjs",
     "types": "index.d.ts",
@@ -56,6 +56,6 @@
         ]
     },
     "dependencies": {
-        "@purinton/common": "^1.0.16"
+        "@purinton/common": "^1.0.17"
     }
 }
